@@ -3,7 +3,6 @@ package me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown;
 import me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown.exception.RequiredValueException;
 import me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown.exception.SignalNotSupportException;
 import me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown.handler.ShutdownHandler;
-import org.springframework.util.Assert;
 import sun.misc.Signal;
 import sun.misc.SignalHandler;
 
@@ -18,7 +17,6 @@ public class ServerSignalHandler implements SignalHandler {
         }
 
         Signal signal = new Signal(signalName);
-        ServerSignalFilter.setReadyToShutdown(signal);
 
         this.shutdownHandler = shutdownHandler;
         this.signalHandler = Signal.handle(signal, this);
@@ -40,7 +38,11 @@ public class ServerSignalHandler implements SignalHandler {
                 this.signalHandler.handle(signal);
             }
 
-            System.exit(0);
+            if (this.shutdownHandler.isFinishied()) {
+                System.exit(0);
+            } else {
+                this.signalHandler.handle(signal);
+            }
         }
     }
 

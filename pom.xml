@@ -5,18 +5,21 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.19.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<version>2.1.2.RELEASE</version>
+		<relativePath/>
 	</parent>
-	<groupId>me.phoboslabs.illuminati</groupId>
-	<artifactId>illuminati-graceful-shutdown</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>illuminati-graceful-shutdown</name>
-	<description>Demo project for Spring Boot</description>
 
 	<properties>
-		<java.version>1.6</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.10</java.version>
 	</properties>
+
+	<groupId>me.phoboslabs.illuminati</groupId>
+	<artifactId>illuminati-graceful-shutdown</artifactId>
+	<version>0.1</version>
+	<name>illuminati-graceful-shutdown</name>
+	<description>Graceful shutdown for Spring Boot 2.x project</description>
 
 	<dependencies>
 		<dependency>

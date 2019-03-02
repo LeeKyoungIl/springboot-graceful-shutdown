@@ -41,8 +41,10 @@ public class ServerSignalFilter implements Filter {
         return WORK_COUNT.get();
     }
 
-    public static void setReadyToShutdown (Signal signal) {
-        if (signal.getName().equalsIgnoreCase("USR2")) {
+    public static void setReadyToShutdown (String signalName) {
+        System.out.println("shutdown check 1");
+        if (signalName.equalsIgnoreCase("TERM")) {
+            System.out.println("shutdown check");
             READY_TO_SHUTDOWN.set(true);
         }
     }

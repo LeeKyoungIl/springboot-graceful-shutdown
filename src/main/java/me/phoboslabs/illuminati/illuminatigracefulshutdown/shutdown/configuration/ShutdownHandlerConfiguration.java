@@ -5,7 +5,7 @@ import me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown.exception.Re
 import me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown.exception.SignalNotSupportException;
 import me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown.handler.SpringBootShutdownHandler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.embedded.EmbeddedWebApplicationContext;
+import org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,7 +14,7 @@ import javax.annotation.PostConstruct;
 @Configuration
 public class ShutdownHandlerConfiguration {
 
-    private static final String SIGNAL_TPYE = "TERM";
+    private static final String SIGNAL_TYPE = "TERM";
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -22,14 +22,16 @@ public class ShutdownHandlerConfiguration {
     @PostConstruct
     public void initShutdownHandler () {
         try {
-            EmbeddedWebApplicationContext embeddedWebApplicationContext = (EmbeddedWebApplicationContext) this.applicationContext;
+            ServletWebServerApplicationContext embeddedWebApplicationContext = (ServletWebServerApplicationContext) this.applicationContext;
             SpringBootShutdownHandler springBootShutdownHandler = new SpringBootShutdownHandler(embeddedWebApplicationContext);
 
-            ServerSignalHandler.registShutdownHandler(SIGNAL_TPYE, springBootShutdownHandler);
-        } catch (Exception e) {
+            ServerSignalHandler.registShutdownHandler(SIGNAL_TYPE, springBootShutdownHandler);
+        } catch (SignalNotSupportException sigex) {
             System.out.println("The illuminati grace shutdown filter is failed to initialize.");
-        } catch (RequiredValueException e) {
+            sigex.printStackTrace();
+        } catch (RequiredValueException regex) {
             System.out.println("check your springBootShutdownHandler.");
+            regex.printStackTrace();
         }
     }
 }

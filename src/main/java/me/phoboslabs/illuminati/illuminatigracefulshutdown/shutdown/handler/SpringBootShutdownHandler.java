@@ -1,14 +1,16 @@
 package me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown.handler;
 
-import org.springframework.boot.context.embedded.EmbeddedWebApplicationContext;
-import org.springframework.util.Assert;
+import me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown.exception.RequiredValueException;
+import org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext;
 
 public class SpringBootShutdownHandler implements ShutdownHandler {
 
-    private EmbeddedWebApplicationContext embeddedWebApplicationContext;
+    private ServletWebServerApplicationContext embeddedWebApplicationContext;
 
-    public SpringBootShutdownHandler (EmbeddedWebApplicationContext embeddedWebApplicationContext) {
-        Assert.notNull(embeddedWebApplicationContext, "embeddedWebApplicationContext is required.");
+    public SpringBootShutdownHandler (ServletWebServerApplicationContext embeddedWebApplicationContext) throws RequiredValueException {
+        if (embeddedWebApplicationContext == null) {
+            throw new RequiredValueException("embeddedWebApplicationContext is required.");
+        }
         this.embeddedWebApplicationContext = embeddedWebApplicationContext;
     }
 
