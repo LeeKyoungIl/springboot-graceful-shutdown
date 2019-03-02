@@ -14,7 +14,7 @@ import javax.annotation.PostConstruct;
 @Configuration
 public class ShutdownHandlerConfiguration {
 
-    private static final String SIGNAL_TPYE = "USR2";
+    private static final String SIGNAL_TPYE = "TERM";
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -26,7 +26,7 @@ public class ShutdownHandlerConfiguration {
             SpringBootShutdownHandler springBootShutdownHandler = new SpringBootShutdownHandler(embeddedWebApplicationContext);
 
             ServerSignalHandler.registShutdownHandler(SIGNAL_TPYE, springBootShutdownHandler);
-        } catch (SignalNotSupportException e) {
+        } catch (Exception e) {
             System.out.println("The illuminati grace shutdown filter is failed to initialize.");
         } catch (RequiredValueException e) {
             System.out.println("check your springBootShutdownHandler.");

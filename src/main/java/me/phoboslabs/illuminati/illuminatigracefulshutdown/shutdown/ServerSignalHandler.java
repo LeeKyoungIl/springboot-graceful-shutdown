@@ -13,7 +13,7 @@ public class ServerSignalHandler implements SignalHandler {
     private SignalHandler signalHandler;
 
     private ServerSignalHandler(final String signalName, ShutdownHandler shutdownHandler) throws SignalNotSupportException {
-        if (signalName.equalsIgnoreCase("USR2") == false) {
+        if (signalName.equalsIgnoreCase("TERM") == false) {
             throw new SignalNotSupportException();
         }
 
@@ -26,20 +26,22 @@ public class ServerSignalHandler implements SignalHandler {
 
     @Override
     public void handle(Signal signal) {
-        this.shutdownHandler.stopApplication();
+        try {
+            this.shutdownHandler.stopApplication();
 
-        while (ServerSignalFilter.getWorkCount() > 0) {
-            try {
-                Thread.sleep(100L);
-            } catch (InterruptedException ignored) {
+            while (ServerSignalFilter.getWorkCount() > 0) {
+                try {
+                    Thread.sleep(100L);
+                } catch (InterruptedException ignored) {
+                }
             }
-        }
+        } finally {
+            if (this.signalHandler != SIG_DFL && this.signalHandler != SIG_IGN) {
+                this.signalHandler.handle(signal);
+            }
 
-        if (this.signalHandler != SIG_DFL && this.signalHandler != SIG_IGN) {
-            this.signalHandler.handle(signal);
+            System.exit(0);
         }
-
-        System.exit(0);
     }
 
     public static ServerSignalHandler registShutdownHandler(String signalName, ShutdownHandler serverShutdownHandler) throws SignalNotSupportException, RequiredValueException {
