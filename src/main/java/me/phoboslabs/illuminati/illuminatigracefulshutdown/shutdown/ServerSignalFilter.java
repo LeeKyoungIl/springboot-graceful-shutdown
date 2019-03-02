@@ -1,7 +1,6 @@
 package me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown;
 
 import org.springframework.context.annotation.Configuration;
-import sun.misc.Signal;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +17,9 @@ public class ServerSignalFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        System.out.println("init");
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        System.out.println("@ The illuminati graceful shutdown filter is now initialized. @");
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
     }
 
     @Override
@@ -34,7 +35,9 @@ public class ServerSignalFilter implements Filter {
 
     @Override
     public void destroy() {
-        System.out.println("The illuminati Graceful shutdown filter is Activated.");
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        System.out.println("@ The illuminati graceful shutdown is completed.              @");
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
     }
 
     public static long getWorkCount () {
@@ -42,9 +45,7 @@ public class ServerSignalFilter implements Filter {
     }
 
     public static void setReadyToShutdown (String signalName) {
-        System.out.println("shutdown check 1");
         if (signalName.equalsIgnoreCase("TERM")) {
-            System.out.println("shutdown check");
             READY_TO_SHUTDOWN.set(true);
         }
     }
