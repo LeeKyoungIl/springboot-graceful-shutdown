@@ -11,6 +11,9 @@ public class ServerSignalHandler implements SignalHandler {
     private final ShutdownHandler shutdownHandler;
     private SignalHandler signalHandler;
 
+    private static int retryCount = 3;
+    private final long timeLimit = 30000L;
+
     private ServerSignalHandler(final String signalName, ShutdownHandler shutdownHandler) throws SignalNotSupportException {
         if (signalName.equalsIgnoreCase("TERM") == false) {
             throw new SignalNotSupportException();
@@ -26,15 +29,22 @@ public class ServerSignalHandler implements SignalHandler {
     public void handle(Signal signal) {
         try {
             this.shutdownHandler.stopApplication();
+            if (this.retryCount > 0) {
+                long checkTimeData = 0L;
 
-            while (ServerSignalFilter.getWorkCount() > 0) {
-                try {
-                    Thread.sleep(100L);
-                } catch (InterruptedException ignored) {
+                while (ServerSignalFilter.getWorkCount() > 0 && checkTimeData <= this.timeLimit) {
+                    try {
+                        Thread.sleep(100L);
+                        checkTimeData += 100L;
+                    } catch (InterruptedException ignored) {
+                    }
                 }
+            } else {
+                System.exit(0);
             }
         } finally {
             if (this.signalHandler != SIG_DFL && this.signalHandler != SIG_IGN) {
+                this.retryCount--;
                 this.signalHandler.handle(signal);
             }
 
