@@ -80,29 +80,5 @@ kill(종료) 시그널 발생 시 진행중인 요청이 모두 끝날때까지 
 ![image](https://github.com/LeeKyoungIl/springboot-graceful-shutdown/blob/master/image/sample_3.png)
 ![image](https://github.com/LeeKyoungIl/springboot-graceful-shutdown/blob/master/image/sample_4.png)
 
-## 사용방법
-- maven
-```xml
-<dependency>
-  <groupId>me.phoboslabs.illuminati</groupId>
-  <artifactId>illuminati-graceful-shutdown</artifactId>
-  <version>0.1.7</version>
-</dependency>
-```
-- gradle
-```xml
-compile 'me.phoboslabs.illuminati:illuminati-graceful-shutdown:0.1.7'
-```
-
-- Spring Boot Application
-    - import ServerSignalFilterConfiguration class on your Spring Boot Application.
-```java
-@SpringBootApplication
-@Import({IlluminatiGSFilterConfiguration.class})
-public class SpringBootApplication {
-    ...
-}
-```
-
 # License
 illuminati-springboot-graceful-shutdown is distributed under the GNU GPL version 3 or later.
