@@ -25,6 +25,11 @@ kill(종료) 시그널 발생 시 진행중인 요청이 모두 끝날때까지 
 또한 kill(종료) 시그널 발생 이후부터 들어오는 요청은 503 http status 로 돌려주며,
 앞에 nginx 프록시로 Spring Boot Application을 2개 이상 사용한다면 무중단 배포가 가능합니다. 
 
+![image](https://github.com/LeeKyoungIl/springboot-graceful-shutdown/blob/master/image/sample_1.png)
+![image](https://github.com/LeeKyoungIl/springboot-graceful-shutdown/blob/master/image/sample_2.png)
+![image](https://github.com/LeeKyoungIl/springboot-graceful-shutdown/blob/master/image/sample_3.png)
+![image](https://github.com/LeeKyoungIl/springboot-graceful-shutdown/blob/master/image/sample_4.png)
+
 ## 사용방법
 - maven
 ```xml
