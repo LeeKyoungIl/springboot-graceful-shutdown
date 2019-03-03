@@ -14,15 +14,40 @@
  terminate immediately on application context.
  Therefore error occurs by user side.
  
- ## a function of illuminati-springboot-graceful-shutdown
+ ## A function of illuminati-springboot-graceful-shutdown
  
- - a function of safely shut down
+ - A function of safely shut down
  To prevent problems above, use it. 
  if a kill signal occurred. it checks until all in progress requests are completed and safely shutdown.
  
  - Minimize errors in deploymene.
  Incoming requests after the kill signal return 503 http status.
  If you use more than one SpringBoot Application with the nginx proxy, you can deploy it nondisruptive.
+
+## How to use in the project.
+
+- maven
+```xml
+<dependency>
+  <groupId>me.phoboslabs.illuminati</groupId>
+  <artifactId>illuminati-graceful-shutdown</artifactId>
+  <version>0.1.7</version>
+</dependency>
+```
+- gradle
+```xml
+compile 'me.phoboslabs.illuminati:illuminati-graceful-shutdown:0.1.7'
+```
+
+- Spring Boot Application
+    - import ServerSignalFilterConfiguration class on your Spring Boot Application.
+```java
+@SpringBootApplication
+@Import({IlluminatiGSFilterConfiguration.class})
+public class SpringBootApplication {
+    ...
+}
+```
 
 ============================================================================
 
