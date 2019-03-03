@@ -27,7 +27,7 @@ public class SpringBootShutdownHandler implements ShutdownHandler {
     }
 
     @Override
-    public boolean isFinishied() {
+    public boolean isFinished() {
         return this.embeddedWebApplicationContext.isRunning() == false;
     }
 }

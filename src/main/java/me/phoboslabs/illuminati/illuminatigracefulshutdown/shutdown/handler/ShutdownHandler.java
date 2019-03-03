@@ -4,5 +4,5 @@ public interface ShutdownHandler {
 
     void stopApplication ();
 
-    boolean isFinishied ();
+    boolean isFinished();
 }
