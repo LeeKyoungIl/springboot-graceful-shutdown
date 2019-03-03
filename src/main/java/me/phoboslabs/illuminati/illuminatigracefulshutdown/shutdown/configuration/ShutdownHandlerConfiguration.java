@@ -12,14 +12,16 @@ import javax.validation.constraints.NotNull;
 public final class ShutdownHandlerConfiguration {
 
     private static final String SIGNAL_TYPE = "TERM";
-    
+
     private final @NotNull ApplicationContext applicationContext;
+    private boolean initialized = false;
 
     public ShutdownHandlerConfiguration (ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
+        this.initShutdownHandler();
     }
 
-    public ShutdownHandlerConfiguration initShutdownHandler () {
+    private ShutdownHandlerConfiguration initShutdownHandler () {
         if (this.applicationContext == null) {
             System.out.println("check your applicationContext.");
             return this;
@@ -29,6 +31,7 @@ public final class ShutdownHandlerConfiguration {
             SpringBootShutdownHandler springBootShutdownHandler = new SpringBootShutdownHandler(embeddedWebApplicationContext);
 
             ServerSignalHandler.registShutdownHandler(SIGNAL_TYPE, springBootShutdownHandler);
+            this.initialized = ServerSignalHandler.isInitialized();
         } catch (SignalNotSupportException sigex) {
             System.out.println("The illuminati grace shutdown filter is failed to initialize.");
             sigex.printStackTrace();
@@ -37,5 +40,9 @@ public final class ShutdownHandlerConfiguration {
             regex.printStackTrace();
         }
         return this;
+    }
+
+    public boolean isInitialized () {
+        return this.initialized;
     }
 }

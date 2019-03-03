@@ -1,5 +1,6 @@
 package me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown;
 
+import me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown.configuration.ServerSignalFilterConfiguration;
 import me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown.exception.RequiredValueException;
 import me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown.exception.SignalNotSupportException;
 import me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown.handler.ShutdownHandler;
@@ -13,6 +14,8 @@ public class ServerSignalHandler implements SignalHandler {
 
     private int retryCount = 3;
 
+    private static boolean INITIALIZED = false;
+
     private ServerSignalHandler(final String signalName, ShutdownHandler shutdownHandler) throws SignalNotSupportException {
         if (signalName.equalsIgnoreCase("TERM") == false) {
             throw new SignalNotSupportException();
@@ -22,22 +25,33 @@ public class ServerSignalHandler implements SignalHandler {
 
         this.shutdownHandler = shutdownHandler;
         this.signalHandler = Signal.handle(signal, this);
+
+        if (this.shutdownHandler != null && this.signalHandler != null) {
+            INITIALIZED = true;
+        }
     }
 
     @Override
     public void handle(Signal signal) {
+        ServerSignalFilterConfiguration.setReadyToShutdown(signal.getName());
+
         try {
-            this.shutdownHandler.stopApplication();
             if (this.retryCount > 0) {
                 final long timeLimit = 30000L;
                 long checkTimeData = 0L;
 
-                while ((ServerSignalFilter.getWorkCount() > 0) && (checkTimeData <= timeLimit)) {
+                while ((ServerSignalFilterConfiguration.getWorkCount() > 0) && (checkTimeData <= timeLimit)) {
                     try {
                         Thread.sleep(100L);
                         checkTimeData += 100L;
                     } catch (InterruptedException ignored) {}
                 }
+
+                this.shutdownHandler.stopApplication();
+
+                try {
+                    Thread.sleep(3000L);
+                } catch (InterruptedException ignored) {}
             }
         } finally {
             if (((this.signalHandler != SIG_DFL && this.signalHandler != SIG_IGN)
@@ -56,5 +70,9 @@ public class ServerSignalHandler implements SignalHandler {
             throw new RequiredValueException();
         }
         return new ServerSignalHandler(signalName, serverShutdownHandler);
+    }
+
+    public static boolean isInitialized () {
+        return INITIALIZED;
     }
 }
