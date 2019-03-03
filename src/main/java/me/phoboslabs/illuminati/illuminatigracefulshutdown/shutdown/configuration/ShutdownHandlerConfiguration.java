@@ -6,9 +6,7 @@ import me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown.exception.Si
 import me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown.handler.SpringBootShutdownHandler;
 import org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Configuration;
 
-@Configuration
 public class ShutdownHandlerConfiguration {
 
     private static final String SIGNAL_TYPE = "TERM";
