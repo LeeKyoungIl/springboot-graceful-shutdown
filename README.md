@@ -31,12 +31,12 @@
 <dependency>
   <groupId>me.phoboslabs.illuminati</groupId>
   <artifactId>illuminati-graceful-shutdown</artifactId>
-  <version>0.1.7</version>
+  <version>0.2.3</version>
 </dependency>
 ```
 - gradle
 ```xml
-compile 'me.phoboslabs.illuminati:illuminati-graceful-shutdown:0.1.7'
+compile 'me.phoboslabs.illuminati:illuminati-graceful-shutdown:0.2.3'
 ```
 
 - Spring Boot Application
