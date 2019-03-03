@@ -40,9 +40,9 @@ public class ServerSignalHandler implements SignalHandler {
                 }
             }
         } finally {
-            if ((this.signalHandler != SIG_DFL && this.signalHandler != SIG_IGN)
-                    || this.retryCount > 0
-                    || (this.shutdownHandler.isFinished() == false)) {
+            if (((this.signalHandler != SIG_DFL && this.signalHandler != SIG_IGN)
+                    || (this.shutdownHandler.isFinished() == false))
+                    && this.retryCount > 0) {
                 this.retryCount--;
                 this.signalHandler.handle(signal);
             } else {
