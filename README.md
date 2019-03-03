@@ -7,7 +7,7 @@ Spring Boot 프로젝트에서 사용할 수 있는 Graceful shutdown 라이브�
  - Spring Boot 2.x
  - Oracle JDK 8, OpenJDK 10.0.2 (9이상, 11지원)
  
-## 왜 Graceful shutdown 기능이 필요할까?
+## 왜 Graceful shutdown 기능이 필요할까요?
 
 Spring Boot는 기본적으로 Graceful Shutdown을 지원하지 않습니다.
 Spring Boot는 kill(종료) 시그널 발생 시 진행중인, 혹은 현재 들어오는 요청을 
