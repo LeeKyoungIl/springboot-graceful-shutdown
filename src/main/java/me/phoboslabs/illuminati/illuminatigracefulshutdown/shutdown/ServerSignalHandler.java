@@ -1,6 +1,6 @@
 package me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown;
 
-import me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown.configuration.ServerSignalFilterConfiguration;
+import me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown.configuration.IlluminatiGSFilterConfiguration;
 import me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown.exception.RequiredValueException;
 import me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown.exception.SignalNotSupportException;
 import me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown.handler.ShutdownHandler;
@@ -33,14 +33,14 @@ public class ServerSignalHandler implements SignalHandler {
 
     @Override
     public void handle(Signal signal) {
-        ServerSignalFilterConfiguration.setReadyToShutdown(signal.getName());
+        IlluminatiGSFilterConfiguration.setReadyToShutdown(signal.getName());
 
         try {
             if (this.retryCount > 0) {
                 final long timeLimit = 30000L;
                 long checkTimeData = 0L;
 
-                while ((ServerSignalFilterConfiguration.getWorkCount() > 0) && (checkTimeData <= timeLimit)) {
+                while ((IlluminatiGSFilterConfiguration.getWorkCount() > 0) && (checkTimeData <= timeLimit)) {
                     try {
                         Thread.sleep(100L);
                         checkTimeData += 100L;

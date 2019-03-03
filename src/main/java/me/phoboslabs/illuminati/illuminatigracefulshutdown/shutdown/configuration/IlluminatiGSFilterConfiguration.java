@@ -1,6 +1,5 @@
 package me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown.configuration;
 
-import me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown.configuration.ShutdownHandlerConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +11,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Configuration
-public class ServerSignalFilterConfiguration implements Filter {
+public class IlluminatiGSFilterConfiguration implements Filter {
 
     private static final String SHUTDOWN_MESSAGE = "The application is preparing to shutdown.";
     private static final AtomicLong WORK_COUNT = new AtomicLong(0L);
