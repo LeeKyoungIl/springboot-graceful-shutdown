@@ -34,17 +34,11 @@ public class ServerSignalFilterConfiguration implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         if (READY_TO_SHUTDOWN.get() == false) {
-            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-            System.out.println(WORK_COUNT.get());
-            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
             WORK_COUNT.set(WORK_COUNT.get()+1L);
             try {
                 chain.doFilter(request, response);
             } finally {
                 WORK_COUNT.set(WORK_COUNT.get()-1L);
-                System.out.println("===============================================================");
-                System.out.println(WORK_COUNT.get());
-                System.out.println("===============================================================");
             }
         } else {
             ((HttpServletResponse) response).sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE, SHUTDOWN_MESSAGE);
