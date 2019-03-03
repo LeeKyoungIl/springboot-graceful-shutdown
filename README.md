@@ -1,5 +1,30 @@
 # [Project illuminati](https://github.com/LeeKyoungIl/illuminati)
  - illuminati-springboot-graceful-shutdown
+ 
+ The Illuminati-Graceful-shutdown library is available for Spring Boot project.
+ 
+ ## Required environment
+  - Spring Boot 2.x
+  - Oracle JDK 8, OpenJDK 10.0.2 (9이상, 11지원)
+  
+ ## Why do we need to graceful shutdown library?
+ 
+ The SpringBoot does not supported the graceful shutdown basically.
+ When a kill signal occurred. in progress or incoming request are all 
+ terminate immediately on application context.
+ Therefore error occurs by user side.
+ 
+ ## a function of illuminati-springboot-graceful-shutdown
+ 
+ - a function of safely shut down
+ To prevent problems above, use it. 
+ if a kill signal occurred. it checks until all in progress requests are completed and safely shutdown.
+ 
+ - Minimize errors in deploymene.
+ Incoming requests after the kill signal return 503 http status.
+ If you use more than one SpringBoot Application with the nginx proxy, you can deploy it nondisruptive.
+
+============================================================================
 
 Spring Boot 프로젝트에서 사용할 수 있는 Graceful shutdown 라이브러리 입니다.
 
