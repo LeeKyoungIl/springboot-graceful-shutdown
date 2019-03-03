@@ -5,7 +5,7 @@
  
  ## Required environment
   - Spring Boot 2.x
-  - Oracle JDK 8, OpenJDK 10.0.2 (9이상, 11지원)
+  - Oracle JDK 8, OpenJDK 10.0.2 (9, 11)
   
  ## Why do we need to graceful shutdown library?
  
