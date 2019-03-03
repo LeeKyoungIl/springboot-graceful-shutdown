@@ -4,23 +4,26 @@ import me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown.ServerSignal
 import me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown.exception.RequiredValueException;
 import me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown.exception.SignalNotSupportException;
 import me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown.handler.SpringBootShutdownHandler;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
-
-import javax.annotation.PostConstruct;
 
 @Configuration
 public class ShutdownHandlerConfiguration {
 
     private static final String SIGNAL_TYPE = "TERM";
 
-    @Autowired
-    private ApplicationContext applicationContext;
+    private final ApplicationContext applicationContext;
 
-    @PostConstruct
-    public void initShutdownHandler () {
+    public ShutdownHandlerConfiguration (ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
+    }
+
+    public ShutdownHandlerConfiguration initShutdownHandler () {
+        if (this.applicationContext == null) {
+            System.out.println("check your applicationContext.");
+            return this;
+        }
         try {
             ServletWebServerApplicationContext embeddedWebApplicationContext = (ServletWebServerApplicationContext) this.applicationContext;
             SpringBootShutdownHandler springBootShutdownHandler = new SpringBootShutdownHandler(embeddedWebApplicationContext);
@@ -33,5 +36,6 @@ public class ShutdownHandlerConfiguration {
             System.out.println("check your springBootShutdownHandler.");
             regex.printStackTrace();
         }
+        return this;
     }
 }
