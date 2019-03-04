@@ -26,6 +26,23 @@
 
 ## How to use in the project.
 
+- maven & gradle (repository add to your configuration)
+ - maven
+ ```xml
+ <repositories>
+   <repository>
+   <id>jcenter</id>
+   <url>https://jcenter.bintray.com/</url>
+   </repository>
+</repositories>
+ ```
+ - gradle
+ ```xml
+repositories {
+    jcenter()
+}
+ ```
+
 - maven
 ```xml
 <dependency>
