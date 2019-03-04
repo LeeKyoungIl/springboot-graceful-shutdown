@@ -27,11 +27,15 @@ public class IlluminatiGSFilterConfiguration extends OncePerRequestFilter {
 
     @PostConstruct
     private void init () {
-        ShutdownHandlerConfiguration shutdownHandlerConfiguration = new ShutdownHandlerConfiguration(applicationContext);
-        if (shutdownHandlerConfiguration.isInitialized()) {
-            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-            System.out.println("@ The illuminati graceful shutdown filter is now initialized. @");
-            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        if (this.applicationContext != null) {
+            ShutdownHandlerConfiguration shutdownHandlerConfiguration = new ShutdownHandlerConfiguration(applicationContext);
+            if (shutdownHandlerConfiguration.isInitialized()) {
+                System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                System.out.println("@ The illuminati graceful shutdown filter is now initialized. @");
+                System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+            }
+        } else {
+            throw new ApplicationContextBeanException();
         }
     }
 

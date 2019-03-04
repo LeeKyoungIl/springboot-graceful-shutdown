@@ -48,12 +48,12 @@ repositories {
 <dependency>
   <groupId>me.phoboslabs.illuminati</groupId>
   <artifactId>illuminati-graceful-shutdown</artifactId>
-  <version>0.2.5.5</version>
+  <version>0.2.5.6</version>
 </dependency>
 ```
 - gradle
 ```xml
-compile 'me.phoboslabs.illuminati:illuminati-graceful-shutdown:0.2.5.5'
+compile 'me.phoboslabs.illuminati:illuminati-graceful-shutdown:0.2.5.6'
 ```
 
 - Spring Boot Application

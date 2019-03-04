@@ -14,7 +14,7 @@ final class ShutdownHandlerConfiguration {
     private final ApplicationContext applicationContext;
     private boolean initialized = false;
 
-    ShutdownHandlerConfiguration (ApplicationContext applicationContext) {
+    ShutdownHandlerConfiguration(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
         this.initShutdownHandler();
     }
