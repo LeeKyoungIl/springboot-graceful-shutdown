@@ -57,7 +57,7 @@ compile 'me.phoboslabs.illuminati:illuminati-graceful-shutdown:0.2.5'
 ```
 
 - Spring Boot Application
-    - import ServerSignalFilterConfiguration class on your Spring Boot Application.
+    - Use IlluminatiGracefulShutdown annotation on your Spring Boot Application.
 ```java
 @SpringBootApplication
 @IlluminatiGracefulShutdown
