@@ -33,6 +33,10 @@ public class ServerSignalHandler implements SignalHandler {
 
     @Override
     public void handle(Signal signal) {
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        System.out.println("@ Your Application will be stopped soon.            @");
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
         IlluminatiGSFilterConfiguration.setReadyToShutdown(signal.getName());
 
         try {
@@ -50,6 +54,10 @@ public class ServerSignalHandler implements SignalHandler {
                 try {
                     this.shutdownHandler.stopApplication();
                 } catch (Exception ex) {
+                    System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                    System.out.println("@ Your Application is finished by force. BYE BYE.   @");
+                    System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
                     System.exit(0);
                 }
 
@@ -64,6 +72,10 @@ public class ServerSignalHandler implements SignalHandler {
                 this.retryCount--;
                 this.signalHandler.handle(signal);
             } else {
+                System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                System.out.println("@ Your Application is finished. BYE BYE.            @");
+                System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
                 System.exit(0);
             }
         }

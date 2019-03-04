@@ -1,9 +1,12 @@
 package me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown.configuration;
 
 import me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown.exception.ApplicationContextBeanException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,22 +15,17 @@ import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
+@Configuration
 public class IlluminatiGSFilterConfiguration extends OncePerRequestFilter {
 
     private static final String SHUTDOWN_MESSAGE = "The application is preparing to shutdown.";
     private static final AtomicLong WORK_COUNT = new AtomicLong(0L);
     private static final AtomicBoolean READY_TO_SHUTDOWN = new AtomicBoolean(false);
 
-    private final ApplicationContext applicationContext;
+    @Autowired
+    private ApplicationContext applicationContext;
 
-    public IlluminatiGSFilterConfiguration (ApplicationContext applicationContext) throws ApplicationContextBeanException {
-        if (applicationContext == null) {
-            throw new ApplicationContextBeanException();
-        }
-        this.applicationContext = applicationContext;
-        this.init();
-    }
-
+    @PostConstruct
     private void init () {
         ShutdownHandlerConfiguration shutdownHandlerConfiguration = new ShutdownHandlerConfiguration(applicationContext);
         if (shutdownHandlerConfiguration.isInitialized()) {

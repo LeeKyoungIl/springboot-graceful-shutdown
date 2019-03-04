@@ -16,14 +16,7 @@ public class SpringBootShutdownHandler implements ShutdownHandler {
 
     @Override
     public void stopApplication() {
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        System.out.println("@ Your Application will be stopped soon.            @");
-        System.out.println("@ ================================================= @");
-
         this.embeddedWebApplicationContext.stop();
-
-        System.out.println("@ Your Application is finished. BYE BYE.            @");
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
     }
 
     @Override
