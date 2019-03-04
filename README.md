@@ -48,19 +48,19 @@ repositories {
 <dependency>
   <groupId>me.phoboslabs.illuminati</groupId>
   <artifactId>illuminati-graceful-shutdown</artifactId>
-  <version>0.2.4</version>
+  <version>0.2.5</version>
 </dependency>
 ```
 - gradle
 ```xml
-compile 'me.phoboslabs.illuminati:illuminati-graceful-shutdown:0.2.4'
+compile 'me.phoboslabs.illuminati:illuminati-graceful-shutdown:0.2.5'
 ```
 
 - Spring Boot Application
     - import ServerSignalFilterConfiguration class on your Spring Boot Application.
 ```java
 @SpringBootApplication
-@Import({IlluminatiGSFilterConfiguration.class})
+@IlluminatiGracefulShutdown
 public class SpringBootApplication {
     ...
 }

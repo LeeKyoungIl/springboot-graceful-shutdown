@@ -7,16 +7,14 @@ import me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown.handler.Spri
 import org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext;
 import org.springframework.context.ApplicationContext;
 
-import javax.validation.constraints.NotNull;
-
-public final class ShutdownHandlerConfiguration {
+final class ShutdownHandlerConfiguration {
 
     private static final String SIGNAL_TYPE = "TERM";
 
-    private final @NotNull ApplicationContext applicationContext;
+    private final ApplicationContext applicationContext;
     private boolean initialized = false;
 
-    public ShutdownHandlerConfiguration (ApplicationContext applicationContext) {
+    ShutdownHandlerConfiguration (ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
         this.initShutdownHandler();
     }
