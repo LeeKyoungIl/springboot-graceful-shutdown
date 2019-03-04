@@ -3,15 +3,18 @@ package me.phoboslabs.illuminati.illuminatigracefulshutdown.shutdown.configurati
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.filter.OncePerRequestFilter;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Configuration
-public class IlluminatiGSFilterConfiguration implements Filter {
+public class IlluminatiGSFilterConfiguration extends OncePerRequestFilter {
 
     private static final String SHUTDOWN_MESSAGE = "The application is preparing to shutdown.";
     private static final AtomicLong WORK_COUNT = new AtomicLong(0L);
@@ -20,8 +23,8 @@ public class IlluminatiGSFilterConfiguration implements Filter {
     @Autowired
     private ApplicationContext applicationContext;
 
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    @PostConstruct
+    public void init () {
         ShutdownHandlerConfiguration shutdownHandlerConfiguration = new ShutdownHandlerConfiguration(applicationContext);
         if (shutdownHandlerConfiguration.isInitialized()) {
             System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
@@ -31,7 +34,7 @@ public class IlluminatiGSFilterConfiguration implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         if (READY_TO_SHUTDOWN.get() == false) {
             WORK_COUNT.set(WORK_COUNT.get()+1L);
             try {

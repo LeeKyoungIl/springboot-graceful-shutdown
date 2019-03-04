@@ -47,7 +47,11 @@ public class ServerSignalHandler implements SignalHandler {
                     } catch (InterruptedException ignored) {}
                 }
 
-                this.shutdownHandler.stopApplication();
+                try {
+                    this.shutdownHandler.stopApplication();
+                } catch (Exception ex) {
+                    System.exit(0);
+                }
 
                 try {
                     Thread.sleep(3000L);
