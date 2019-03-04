@@ -94,7 +94,7 @@ kill(종료) 시그널 발생 시 진행중인 요청이 모두 끝날때까지 
 
 ![image](https://github.com/LeeKyoungIl/springboot-graceful-shutdown/blob/master/image/sample_1.png)
 ![image](https://github.com/LeeKyoungIl/springboot-graceful-shutdown/blob/master/image/sample_2.png)
-![image](https://github.com/LeeKyoungIl/springboot-graceful-shutdown/blob/master/image/sample_3.png)
+![image](https://github.com/LeeKyoungIl/springboot-graceful-shutdown/blob/master/image/sample_3_1.png)
 ![image](https://github.com/LeeKyoungIl/springboot-graceful-shutdown/blob/master/image/sample_4.png)
 
 # License
