@@ -4,7 +4,7 @@
  The Illuminati-Graceful-shutdown library is available for Spring Boot project.
  
  ## Required environment
-  - Spring Boot 2.x
+  - Spring Boot 2.x (sorry webflux is not yet supported.)
   - Oracle JDK 8, OpenJDK 9, 10, 11
   
  ## Why do we need to graceful shutdown library?
