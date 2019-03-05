@@ -44,20 +44,21 @@ public class IlluminatiGSFilterConfiguration extends OncePerRequestFilter {
         if (READY_TO_SHUTDOWN.get() == false) {
             WORK_COUNT.set(WORK_COUNT.get()+1L);
             try {
-                chain.doFilter(request, response);
+                if (READY_TO_SHUTDOWN.get() == false) {
+                    chain.doFilter(request, response);
+                } else {
+                    this.returnTo503Status(response);
+                }
             } finally {
                 WORK_COUNT.set(WORK_COUNT.get()-1L);
             }
         } else {
-            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE, SHUTDOWN_MESSAGE);
+            this.returnTo503Status(response);
         }
     }
 
-    @Override
-    public void destroy() {
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        System.out.println("@ The illuminati graceful shutdown is completed.              @");
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    private void returnTo503Status (HttpServletResponse response) throws IOException {
+        ((HttpServletResponse) response).sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE, SHUTDOWN_MESSAGE);
     }
 
     public static long getWorkCount () {
@@ -65,7 +66,11 @@ public class IlluminatiGSFilterConfiguration extends OncePerRequestFilter {
     }
 
     public static void setReadyToShutdown (String signalName) {
-        if (signalName.equalsIgnoreCase("TERM")) {
+        if (READY_TO_SHUTDOWN.get() == false && signalName.equalsIgnoreCase("TERM")) {
+            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+            System.out.println("@ Your Application will be stopped soon.            @");
+            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
             READY_TO_SHUTDOWN.set(true);
         }
     }

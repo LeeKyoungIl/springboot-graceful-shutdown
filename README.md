@@ -5,7 +5,7 @@
  
  ## Required environment
   - Spring Boot 2.x
-  - Oracle JDK 8, OpenJDK 10.0.2 (9, 11)
+  - Oracle JDK 8, OpenJDK 9, 10, 11
   
  ## Why do we need to graceful shutdown library?
  
@@ -48,12 +48,12 @@ repositories {
 <dependency>
   <groupId>me.phoboslabs.illuminati</groupId>
   <artifactId>illuminati-graceful-shutdown</artifactId>
-  <version>0.2.5.6</version>
+  <version>0.2.5.8</version>
 </dependency>
 ```
 - gradle
 ```xml
-compile 'me.phoboslabs.illuminati:illuminati-graceful-shutdown:0.2.5.6'
+compile 'me.phoboslabs.illuminati:illuminati-graceful-shutdown:0.2.5.8'
 ```
 
 - Spring Boot Application
