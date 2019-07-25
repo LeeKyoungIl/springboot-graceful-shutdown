@@ -74,4 +74,8 @@ public class IlluminatiGSFilterConfiguration extends OncePerRequestFilter {
             READY_TO_SHUTDOWN.set(true);
         }
     }
+
+    public static boolean isReadyToShutdown() {
+        return READY_TO_SHUTDOWN.get();
+    }
 }
