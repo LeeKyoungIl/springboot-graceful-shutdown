@@ -17,7 +17,7 @@
 
 	<groupId>me.phoboslabs.illuminati</groupId>
 	<artifactId>illuminati-graceful-shutdown</artifactId>
-	<version>0.2.5.8</version>
+	<version>0.2.5.9</version>
 	<name>illuminati-graceful-shutdown</name>
 	<description>Graceful shutdown for Spring Boot 2.x project</description>
 
